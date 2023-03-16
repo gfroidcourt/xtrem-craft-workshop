@@ -1,10 +1,12 @@
 import { Currency } from './Currency'
+import Money from './Money'
+
 import { Bank } from './Bank'
 
 export class Portfolio {
   private readonly _money: Map<Currency, number> = new Map()
 
-  addMoney (amount: number, currency: Currency): void {
+  addMoneyOld (amount: number, currency: Currency): void {
     if (isNaN(amount)) {
       throw new Error('Amount must be a number')
     }
@@ -12,9 +14,14 @@ export class Portfolio {
     this._money.set(currency, currentAmount + amount)
   }
 
+  addMoney (money: Money): void {
+    const currentAmount: number = this._money.get(money.getCurrency()) ?? 0
+    this._money.set(money.getCurrency(), currentAmount + money.getAmount())
+  }
+
   evaluateToCurrency (bank: Bank, to: Currency): number {
-    return Array.from(this._money.entries())
+    return Array.from(this._money.entries())  //TODO refacto Array.from
       .reduce((total: number, [currency, amount]: [Currency, number]) =>
-        total + bank.Convert(amount, currency, to), 0)
+        total + bank.ConvertOld(amount, currency, to), 0)
   }
 }
