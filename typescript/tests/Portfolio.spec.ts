@@ -1,4 +1,5 @@
 import { Currency } from '../src/Currency'
+import Money from '../src/Money'
 import { Portfolio } from '../src/Portfolio'
 import { Bank } from '../src/Bank'
 
@@ -7,8 +8,8 @@ describe('Portfolio', () => {
     const portfolio: Portfolio = new Portfolio()
     const bank = new Bank()
     bank.AddExchangeRate(Currency.EUR, Currency.USD, 1.2)
-    portfolio.addMoney(10, Currency.EUR)
-    portfolio.addMoney(5, Currency.USD)
+    portfolio.addMoney(new Money(10, Currency.EUR))
+    portfolio.addMoney(new Money(5, Currency.USD))
     const sumInUsd = portfolio.evaluateToCurrency(bank, Currency.USD)
     expect(sumInUsd).toBe(17)
   })
@@ -17,8 +18,8 @@ describe('Portfolio', () => {
     const bank = new Bank()
     bank.AddExchangeRate(Currency.USD, Currency.KRW, 1100)
     bank.AddExchangeRate(Currency.EUR, Currency.KRW, 1344)
-    portfolio.addMoney(10, Currency.EUR)
-    portfolio.addMoney(5, Currency.USD)
+    portfolio.addMoney(new Money(10, Currency.EUR))
+    portfolio.addMoney(new Money(5, Currency.USD))
     const sumInKrw = portfolio.evaluateToCurrency(bank, Currency.KRW)
     expect(sumInKrw).toBe(18940)
   })
@@ -27,8 +28,8 @@ describe('Portfolio', () => {
     const bank = new Bank()
     bank.AddExchangeRate(Currency.USD, Currency.KRW, 1100)
     bank.AddExchangeRate(Currency.EUR, Currency.KRW, 1344)
-    portfolio.addMoney(1, Currency.USD)
-    portfolio.addMoney(1100, Currency.KRW)
+    portfolio.addMoney(new Money(1, Currency.USD))
+    portfolio.addMoney(new Money(1100, Currency.KRW))
     const sumInKrw = portfolio.evaluateToCurrency(bank, Currency.KRW)
     expect(sumInKrw).toBe(2200)
   })
@@ -36,9 +37,9 @@ describe('Portfolio', () => {
     const portfolio: Portfolio = new Portfolio()
     const bank = new Bank()
     bank.AddExchangeRate(Currency.EUR, Currency.USD, 1.2)
-    portfolio.addMoney(5, Currency.USD)
-    portfolio.addMoney(5, Currency.USD)
-    portfolio.addMoney(10, Currency.EUR)
+    portfolio.addMoney(new Money(5, Currency.USD))
+    portfolio.addMoney(new Money(5, Currency.USD))
+    portfolio.addMoney(new Money(10, Currency.EUR))
     const sumInKrw = portfolio.evaluateToCurrency(bank, Currency.USD)
     expect(sumInKrw).toBe(22)
   })

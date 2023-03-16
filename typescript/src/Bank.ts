@@ -1,4 +1,5 @@
 import { Currency } from './Currency'
+import Money from './Money'
 import { MissingExchangeRateError } from './MissingExchangeRateError'
 
 export class Bank {
@@ -14,14 +15,14 @@ export class Bank {
     this._exchangeRates.set(this.createKey(from, to), rate)
   }
 
-  Convert (amount: number, original: Currency, converted: Currency): number {
-    if (!this.canConvert(original, converted)) {
-      throw new MissingExchangeRateError(original, converted)
+  public Convert(money: Money, converted: Currency): Money {
+    if (!this.canConvert(money.getCurrency(), converted)) {
+      throw new MissingExchangeRateError(money.getCurrency(), converted)
     }
 
-    return converted === original
-      ? amount
-      : amount * this._exchangeRates.get(this.createKey(original, converted))
+    return converted === money.getCurrency()
+      ? money
+      : new Money(money.getAmount() * this._exchangeRates.get(this.createKey(money.getCurrency(), converted)), converted)
   }
 
   private canConvert (original: Currency, converted: Currency): boolean {
