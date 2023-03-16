@@ -15,12 +15,6 @@ export class Bank {
     this._exchangeRates.set(this.createKey(from, to), rate)
   }
 
-  
-   ConvertOld (amount: number, original: Currency, converted: Currency): number {
-    const money = new Money(amount, original)
-    return this.Convert(money, converted).getAmount()
-  } 
-
   public Convert(money: Money, converted: Currency): Money {
     if (!this.canConvert(money.getCurrency(), converted)) {
       throw new MissingExchangeRateError(money.getCurrency(), converted)
