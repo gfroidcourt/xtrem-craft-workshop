@@ -10,7 +10,7 @@ export default class Money {
     return new Money(this.amount * multiplier, this.currency)
   }
 
-  x
+
   public static add (money1: Money, money2: Money): Money {
     if (money1.currency !== money2.currency) {
       throw new Error('Currencies do not match')
@@ -23,5 +23,13 @@ export default class Money {
       throw new Error('Can\'t divide by zero')
     }
     return new Money(this.amount / divider, this.currency)
+  }
+
+  public getCurrency(): Currency {
+    return this.currency;
+  }
+
+  public getAmount(): number {
+    return this.amount;
   }
 }
