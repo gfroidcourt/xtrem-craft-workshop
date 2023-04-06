@@ -3,6 +3,7 @@ import Money from './Money'
 import { MissingExchangeRateError } from './MissingExchangeRateError'
 
 export class Bank {
+  public pivotCurrency: Currency
   private readonly _exchangeRates: Map<string, number> = new Map()
 
   static createBankWithExchangeRate (from: Currency, to: Currency, rate: number): Bank {
@@ -15,7 +16,7 @@ export class Bank {
     this._exchangeRates.set(this.createKey(from, to), rate)
   }
 
-  public Convert(money: Money, converted: Currency): Money {
+  public Convert (money: Money, converted: Currency): Money {
     if (!this.canConvert(money.getCurrency(), converted)) {
       throw new MissingExchangeRateError(money.getCurrency(), converted)
     }

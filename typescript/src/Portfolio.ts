@@ -12,8 +12,10 @@ export class Portfolio {
   }
 
   evaluateToCurrency (bank: Bank, to: Currency): number {
-    return Array.from(this._money.entries())
+    const fund: number = Array.from(this._money.entries())
       .reduce((total: number, [currency, amount]: [Currency, number]) =>
-        total + bank.Convert(new Money(amount, currency), to).getAmount(), 0)
+        total + bank.Convert(new Money(amount, currency), bank.pivotCurrency).getAmount(), 0)
+
+    return bank.Convert(new Money(fund, bank.pivotCurrency), to).getAmount()
   }
 }
