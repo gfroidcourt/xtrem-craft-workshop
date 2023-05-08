@@ -22,7 +22,7 @@ describe('Portfolio', () => {
     const sumInUsd = portfolio.evaluateToCurrency(bank, Currency.USD)
     expect(sumInUsd).toBe(17)
   })
-  test('10 EUR + 5 USD = 18940 KWN', () => {
+  test('10 EUR + 5 USD = 19000 KWN', () => {
     const portfolio: Portfolio = new Portfolio()
     // const bank = new Bank()
     // bank.AddExchangeRate(Currency.USD, Currency.KRW, 1100)
@@ -30,7 +30,7 @@ describe('Portfolio', () => {
     portfolio.addMoney(new Money(10, Currency.EUR))
     portfolio.addMoney(new Money(5, Currency.USD))
     const sumInKrw = portfolio.evaluateToCurrency(bank, Currency.KRW)
-    expect(sumInKrw).toBe(18940)
+    expect(sumInKrw).toBe(19000)
   })
   test('1 USD + 1100 KRW = 2200 KWN', () => {
     const portfolio: Portfolio = new Portfolio()

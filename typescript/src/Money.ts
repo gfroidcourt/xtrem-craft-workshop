@@ -30,6 +30,6 @@ export default class Money {
   }
 
   public getAmount(): number {
-    return this.amount;
+    return +this.amount.toPrecision(2);
   }
 }

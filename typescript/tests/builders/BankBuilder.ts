@@ -26,6 +26,7 @@ class BankBuilder {
     bank.AddExchangeRate(this.currency, this.currency, 1)
     this.rates.forEach((rate: number, currency: Currency) => {
       bank.AddExchangeRate(this.currency, currency, rate)
+      bank.AddExchangeRate(currency, this.currency, 1/rate)
     })
 
     return bank

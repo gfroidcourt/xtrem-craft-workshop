@@ -16,6 +16,7 @@ export class Portfolio {
       .reduce((total: number, [currency, amount]: [Currency, number]) =>
         total + bank.Convert(new Money(amount, currency), bank.pivotCurrency).getAmount(), 0)
 
+
     return bank.Convert(new Money(fund, bank.pivotCurrency), to).getAmount()
   }
 }
